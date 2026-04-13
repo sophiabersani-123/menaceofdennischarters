@@ -463,13 +463,13 @@
     .book-phone-main { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.85; }
     .book-phone-num { font-family: 'Playfair Display', serif; font-size: 2rem; margin-top: 0.2rem; }
     .book-or { color: rgba(255,255,255,0.4); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; }
-    .book-email-btn {
-      color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem;
-      border: 1px solid rgba(255,255,255,0.25); padding: 0.75rem 1.5rem; border-radius: 2px;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .book-email-btn:hover { border-color: var(--sand); color: var(--sand); }
- 
+.book-email-btn {
+  color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem;
+  border: 1px solid rgba(255,255,255,0.25); padding: 0.75rem 1.5rem; border-radius: 2px;
+  transition: border-color 0.2s, color 0.2s;
+  display: flex; align-items: center; gap: 0.4rem; text-align: center;
+  word-break: break-all;
+}
 /* RESPONSIVE */
 @media (max-width: 1024px) {
   .cat-grid { grid-template-columns: 1fr; }
