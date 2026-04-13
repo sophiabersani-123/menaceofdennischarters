@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menace of Dennis Charters | Harwich Port, Cape Cod</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+    :root {
+      --navy: #0d1f2d;
+      --ocean: #1a4a6b;
+      --sky: #4a90b8;
+      --sand: #e8d5b0;
+      --coral: #e07850;
+      --cream: #faf6ef;
+      --white: #ffffff;
+    }
+ 
+    html { scroll-behavior: smooth; }
+ 
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+ 
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 4rem;
+      background: rgba(13, 31, 45, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      color: var(--sand);
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--sand); }
+    .nav-book {
+      background: var(--coral);
+      color: white !important;
+      padding: 0.55rem 1.4rem;
+      border-radius: 2px;
+    }
+    .nav-book:hover { background: #c9623d; color: white !important; }
+ 
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background:
+        linear-gradient(to bottom, rgba(13,31,45,0.55) 0%, rgba(13,31,45,0.2) 50%, rgba(13,31,45,0.7) 100%),
+        url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1800&q=80') center/cover no-repeat;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      position: relative;
+    }
+    .hero-eyebrow {
+      color: var(--sand);
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      font-weight: 500;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.3s forwards;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      color: var(--white);
+      line-height: 1.05;
+      max-width: 900px;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--sand);
+    }
+    .hero-sub {
+      margin-top: 1.5rem;
+      color: rgba(255,255,255,0.82);
+      font-size: 1.15rem;
+      font-weight: 300;
+      max-width: 520px;
+      line-height: 1.6;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.7s forwards;
+    }
+    .hero-ctas {
+      margin-top: 2.5rem;
+      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+      opacity: 0;
+      animation: fadeUp 0.8s 0.9s forwards;
+    }
+    .btn-primary {
+      background: var(--coral);
+      color: white;
+      padding: 0.9rem 2.2rem;
+      border-radius: 2px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: #c9623d; transform: translateY(-2px); }
+    .btn-outline {
+      border: 1.5px solid rgba(255,255,255,0.6);
+      color: white;
+      padding: 0.9rem 2.2rem;
+      border-radius: 2px;
+      text-decoration: none;
+      font-weight: 400;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--sand); color: var(--sand); transform: translateY(-2px); }
+ 
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+      color: rgba(255,255,255,0.5); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
+      animation: bounce 2s infinite;
+    }
+    .hero-scroll svg { width: 18px; opacity: 0.6; }
+ 
+    /* BADGE STRIP */
+    .badge-strip {
+      background: var(--navy);
+      padding: 1.2rem 4rem;
+      display: flex; justify-content: center; gap: 4rem; flex-wrap: wrap;
+    }
+    .badge {
+      display: flex; align-items: center; gap: 0.6rem;
+      color: var(--sand); font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+    }
+    .badge svg { width: 18px; color: var(--coral); }
+ 
+    /* SECTION COMMONS */
+    section { padding: 6rem 4rem; }
+    .section-label {
+      font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--coral); font-weight: 500; margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--navy);
+      line-height: 1.15;
+      max-width: 600px;
+    }
+    .section-title em { font-style: italic; color: var(--ocean); }
+ 
+    /* CHARTERS */
+    .charters { background: var(--cream); }
+    .charters-grid {
+      display: grid; grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem; margin-top: 3.5rem;
+    }
+    .charter-card {
+      background: white;
+      border-radius: 4px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(13,31,45,0.08);
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .charter-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(13,31,45,0.14); }
+    .charter-img {
+      height: 220px;
+      background-size: cover; background-position: center;
+      position: relative;
+    }
+    .charter-tag {
+      position: absolute; top: 1rem; left: 1rem;
+      background: var(--coral); color: white;
+      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.3rem 0.75rem; border-radius: 2px; font-weight: 500;
+    }
+    .charter-body { padding: 1.8rem; }
+    .charter-body h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; color: var(--navy); margin-bottom: 0.75rem;
+    }
+    .charter-body p { color: #5a6a78; font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.2rem; }
+    .charter-details { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .detail-item { font-size: 0.82rem; color: var(--ocean); display: flex; align-items: center; gap: 0.4rem; }
+    .charter-price {
+      display: flex; align-items: baseline; gap: 0.4rem;
+      border-top: 1px solid #eee; padding-top: 1.2rem; margin-top: 0.5rem;
+    }
+    .price-from { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.06em; }
+    .price-amount { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); }
+    .price-per { font-size: 0.78rem; color: #999; }
+ 
+    /* ABOUT */
+    .about {
+      background: var(--navy);
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+    }
+    .about .section-title { color: var(--cream); }
+    .about p { color: rgba(255,255,255,0.72); font-size: 1rem; line-height: 1.8; margin-top: 1.5rem; }
+    .about-img {
+      height: 480px;
+      background: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=900&q=80') center/cover;
+      border-radius: 4px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .about-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem;
+    }
+    .stat {
+      border-left: 2px solid var(--coral);
+      padding-left: 1rem;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; color: var(--sand); line-height: 1;
+    }
+    .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 0.3rem; letter-spacing: 0.06em; text-transform: uppercase; }
+ 
+    /* RATES */
+    .rates { background: var(--cream); }
+    .rates-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3.5rem; max-width: 900px; }
+    .rate-table {
+      background: white; border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(13,31,45,0.07); overflow: hidden;
+    }
+    .rate-table-head {
+      background: var(--ocean); color: white;
+      padding: 1.2rem 1.8rem;
+      font-family: 'Playfair Display', serif; font-size: 1.2rem;
+    }
+    .rate-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1rem 1.8rem; border-bottom: 1px solid #f0f0f0;
+      font-size: 0.9rem;
+    }
+    .rate-row:last-child { border-bottom: none; }
+    .rate-row span:first-child { color: #5a6a78; }
+    .rate-row span:last-child { font-weight: 500; color: var(--navy); font-family: 'Playfair Display', serif; font-size: 1.05rem; }
+    .rate-note { padding: 1rem 1.8rem; font-size: 0.8rem; color: #aaa; background: #fafafa; }
+ 
+    /* WHAT TO EXPECT */
+    .expect { background: #f0ebe2; }
+    .expect-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3.5rem; }
+    .expect-item { text-align: center; }
+    .expect-icon {
+      width: 60px; height: 60px; border-radius: 50%;
+      background: var(--navy); color: var(--sand);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.2rem;
+      font-size: 1.4rem;
+    }
+    .expect-item h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 0.5rem; }
+    .expect-item p { font-size: 0.88rem; color: #5a6a78; line-height: 1.6; }
+ 
+    /* BOOK */
+    .book {
+      background:
+        linear-gradient(to right, rgba(13,31,45,0.88), rgba(26,74,107,0.75)),
+        url('https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1800&q=80') center/cover;
+      text-align: center; padding: 7rem 4rem;
+    }
+    .book .section-label { justify-content: center; display: block; }
+    .book .section-title { color: white; margin: 0 auto 1.5rem; max-width: 700px; text-align: center; }
+    .book p { color: rgba(255,255,255,0.75); max-width: 500px; margin: 0 auto 2.5rem; font-size: 1rem; line-height: 1.7; }
+    .book-form {
+      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; max-width: 600px; margin: 0 auto;
+    }
+    .book-form input, .book-form select {
+      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3);
+      color: white; padding: 0.85rem 1.2rem; border-radius: 2px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; flex: 1; min-width: 180px;
+    }
+    .book-form input::placeholder { color: rgba(255,255,255,0.55); }
+    .book-form select option { background: var(--navy); color: white; }
+ 
+    /* CONTACT */
+    .contact { background: var(--navy); padding: 4rem; }
+    .contact-inner {
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 2rem; max-width: 1100px; margin: 0 auto;
+    }
+    .contact-info h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--sand); font-size: 1.5rem; margin-bottom: 1rem;
+    }
+    .contact-detail { color: rgba(255,255,255,0.65); font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .contact-detail a { color: var(--sky); text-decoration: none; }
+    .contact-detail a:hover { color: var(--sand); }
+    .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .social-link {
+      width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.85rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .social-link:hover { border-color: var(--sand); color: var(--sand); }
+ 
+    /* FOOTER */
+    footer {
+      background: #080f16;
+      text-align: center; padding: 1.5rem;
+      color: rgba(255,255,255,0.3); font-size: 0.78rem; letter-spacing: 0.05em;
+    }
+ 
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+ 
+ 
+    /* CATEGORY CARDS */
+    .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .cat-card {
+      background: white; border-radius: 4px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(13,31,45,0.08);
+      cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .cat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,31,45,0.14); }
+    .cat-card.active { box-shadow: 0 12px 40px rgba(13,31,45,0.18); transform: translateY(-4px); }
+    .cat-img { height: 200px; background-size: cover; background-position: center; }
+    .cat-body { padding: 1.6rem; flex: 1; display: flex; flex-direction: column; }
+    .cat-tag {
+      display: inline-block; background: var(--coral); color: white;
+      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.25rem 0.7rem; border-radius: 2px; font-weight: 500; margin-bottom: 0.75rem;
+    }
+    .cat-tag-gold { background: #b8860b; }
+    .cat-tag-blue { background: var(--ocean); }
+    .cat-body h3 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--navy); margin-bottom: 0.6rem; }
+    .cat-body p { color: #5a6a78; font-size: 0.9rem; line-height: 1.65; flex: 1; }
+    .cat-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid #eee; }
+    .cat-price { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); }
+    .cat-price span { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; color: #999; margin-right: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .cat-toggle { font-size: 0.82rem; color: var(--coral); font-weight: 500; letter-spacing: 0.04em; }
+ 
+    /* EXPANDED PANEL */
+    .cat-panel {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.45s ease, padding 0.3s ease;
+      background: #f7f4ef; padding: 0 1.6rem;
+      border-top: none;
+    }
+    .cat-panel.open {
+      max-height: 600px;
+      padding: 1.6rem;
+      border-top: 2px solid var(--coral);
+    }
+    .panel-section-label {
+      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--ocean); font-weight: 500; margin-bottom: 0.75rem;
+    }
+    .panel-option {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(13,31,45,0.08);
+    }
+    .panel-option:last-of-type { border-bottom: none; }
+    .panel-option-name { font-weight: 500; color: var(--navy); font-size: 0.92rem; margin-bottom: 0.25rem; }
+    .panel-option-detail { font-size: 0.8rem; color: #7a8a98; line-height: 1.5; }
+    .panel-option-price { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--navy); white-space: nowrap; padding-top: 0.1rem; }
+    .panel-divider { height: 1px; background: rgba(13,31,45,0.1); margin: 0.75rem 0; }
+    .panel-note { font-size: 0.78rem; color: #999; margin-top: 0.75rem; line-height: 1.5; }
+    .panel-book-btn {
+      display: block; margin-top: 1.2rem;
+      background: var(--coral); color: white; text-decoration: none;
+      text-align: center; padding: 0.75rem; border-radius: 2px;
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em;
+      transition: background 0.2s;
+    }
+    .panel-book-btn:hover { background: #c9623d; }
+ 
+    @media (max-width: 900px) {
+      .cat-grid { grid-template-columns: 1fr; }
+    }
+ 
+ 
+    /* CATEGORY CARDS */
+    .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .cat-card {
+      background: white; border-radius: 4px; overflow: hidden;
+      box-shadow: 0 4px 24px rgba(13,31,45,0.08);
+      cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;
+      display: flex; flex-direction: column;
+    }
+    .cat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,31,45,0.14); }
+    .cat-card.active { box-shadow: 0 12px 40px rgba(13,31,45,0.18); transform: translateY(-4px); }
+    .cat-img { height: 200px; background-size: cover; background-position: center; flex-shrink: 0; }
+    .cat-body { padding: 1.6rem; flex: 1; display: flex; flex-direction: column; }
+    .cat-tag {
+      display: inline-block; background: var(--coral); color: white;
+      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 0.25rem 0.7rem; border-radius: 2px; font-weight: 500; margin-bottom: 0.75rem;
+    }
+    .cat-tag-gold { background: #b8860b; }
+    .cat-tag-blue { background: var(--ocean); }
+    .cat-body h3 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--navy); margin-bottom: 0.6rem; }
+    .cat-body p { color: #5a6a78; font-size: 0.9rem; line-height: 1.65; flex: 1; }
+    .cat-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid #eee; }
+    .cat-price { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); }
+    .cat-price span { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; color: #999; margin-right: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    .cat-toggle { font-size: 0.82rem; color: var(--coral); font-weight: 500; letter-spacing: 0.04em; }
+    .cat-panel {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.45s ease, padding 0.3s ease;
+      background: #f7f4ef; padding: 0 1.6rem;
+    }
+    .cat-panel.open { max-height: 700px; padding: 1.6rem; border-top: 2px solid var(--coral); }
+    .panel-section-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ocean); font-weight: 500; margin-bottom: 0.75rem; }
+    .panel-option { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(13,31,45,0.08); }
+    .panel-option:last-of-type { border-bottom: none; }
+    .panel-option-name { font-weight: 500; color: var(--navy); font-size: 0.92rem; margin-bottom: 0.25rem; }
+    .panel-option-detail { font-size: 0.8rem; color: #7a8a98; line-height: 1.5; }
+    .panel-option-price { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--navy); white-space: nowrap; padding-top: 0.1rem; }
+    .panel-divider { height: 1px; background: rgba(13,31,45,0.1); margin: 0.75rem 0; }
+    .panel-note { font-size: 0.78rem; color: #999; margin-top: 0.75rem; line-height: 1.5; }
+    .panel-book-btn {
+      display: block; margin-top: 1.2rem;
+      background: var(--navy); color: var(--sand); text-decoration: none;
+      text-align: center; padding: 0.85rem; border-radius: 2px;
+      font-size: 0.88rem; font-weight: 500; letter-spacing: 0.04em;
+      transition: background 0.2s;
+    }
+    .panel-book-btn:hover { background: var(--ocean); }
+ 
+    /* BOOK CTA */
+    .book-cta-box { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 0.5rem; }
+    .book-phone-btn {
+      display: flex; flex-direction: column; align-items: center;
+      background: var(--coral); color: white; text-decoration: none;
+      padding: 1.5rem 3rem; border-radius: 4px;
+      transition: background 0.2s, transform 0.2s;
+      min-width: 280px;
+    }
+    .book-phone-btn:hover { background: #c9623d; transform: translateY(-2px); }
+    .book-phone-icon { font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .book-phone-main { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.85; }
+    .book-phone-num { font-family: 'Playfair Display', serif; font-size: 2rem; margin-top: 0.2rem; }
+    .book-or { color: rgba(255,255,255,0.4); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .book-email-btn {
+      color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.25); padding: 0.75rem 1.5rem; border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .book-email-btn:hover { border-color: var(--sand); color: var(--sand); }
+ 
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .charters-grid { grid-template-columns: 1fr; }
+      .about { grid-template-columns: 1fr; }
+      .about-img { height: 280px; order: -1; }
+      .rates-grid { grid-template-columns: 1fr; }
+      .expect-grid { grid-template-columns: 1fr 1fr; }
+      .badge-strip { gap: 1.5rem; padding: 1.2rem 1.5rem; }
+      .book { padding: 4rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+ 
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Menace of Dennis Charters</a>
+  <ul class="nav-links">
+    <li><a href="#charters">Charters</a></li>
+    <li><a href="#rates">Rates</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#book" class="nav-book">Book Now</a></li>
+  </ul>
+</nav>
+ 
+<!-- HERO -->
+<section class="hero">
+  <p class="hero-eyebrow">⚓ Harwich Port, Cape Cod, MA</p>
+  <h1>Your <em>Adventure</em><br>Starts Here</h1>
+  <p class="hero-sub">Fishing charters, sunset cruises & whale watching out of Harwich Port. Come for the catch, stay for the memories.</p>
+  <div class="hero-ctas">
+    <a href="#book" class="btn-primary">Book a Trip</a>
+    <a href="#charters" class="btn-outline">See Our Charters</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+ 
+<!-- BADGE STRIP -->
+<div class="badge-strip">
+  <div class="badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    USCG Licensed Captain
+  </div>
+  <div class="badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Up to 6 Passengers
+  </div>
+  <div class="badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Family Friendly
+  </div>
+  <div class="badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Flexible Scheduling
+  </div>
+</div>
+ 
+<!-- CHARTERS -->
+<section class="charters" id="charters">
+  <p class="section-label">What We Offer</p>
+  <h2 class="section-title">Find Your Perfect <em>Trip</em></h2>
+  <p style="color:#5a6a78; margin-top:0.75rem; margin-bottom:3rem; max-width:520px; line-height:1.7; font-size:0.95rem;">Click any category to explore your options — all trips are private, just your group and open water.</p>
+ 
+  <div class="cat-grid">
+ 
+    <!-- HALF DAY -->
+    <div class="cat-card" onclick="togglePanel('half')">
+      <div class="cat-img" style="background-image: url('https://images.unsplash.com/photo-1541956729-48e5d87c5741?w=800&q=80')"></div>
+      <div class="cat-body">
+        <div class="cat-tag">Most Popular</div>
+        <h3>Half Day Charters</h3>
+        <p>Bottom fishing or a scenic sunset cruise — perfect for families, first-timers, and anyone who wants a taste of the Cape Cod water experience.</p>
+        <div class="cat-footer">
+          <div class="cat-price"><span>From</span> $500</div>
+          <div class="cat-toggle" id="half-toggle">See options ↓</div>
+        </div>
+      </div>
+      <div class="cat-panel" id="half-panel">
+        <div class="panel-section-label">Fishing</div>
+        <div class="panel-option">
+          <div class="panel-option-info">
+            <div class="panel-option-name">🎣 Bottom Fishing</div>
+            <div class="panel-option-detail">2–3 hours · Up to 6 guests · All gear included · Great for beginners & families</div>
+          </div>
+          <div class="panel-option-price">$500</div>
+        </div>
+        <div class="panel-divider"></div>
+        <div class="panel-section-label">Cruises</div>
+        <div class="panel-option">
+          <div class="panel-option-info">
+            <div class="panel-option-name">🌅 Sunset Cruise</div>
+            <div class="panel-option-detail">2–3 hours · Up to 6 guests · BYOB welcome · Timed to golden hour</div>
+          </div>
+          <div class="panel-option-price">$500</div>
+        </div>
+        <div class="panel-note">50% deposit to reserve. Full refund for weather cancellations.</div>
+        <a href="tel:5085612889" class="panel-book-btn" onclick="event.stopPropagation()">📞 Call or Text to Book: 508-561-2889</a>
+      </div>
+    </div>
+ 
+    <!-- FULL DAY -->
+    <div class="cat-card" onclick="togglePanel('full')">
+      <div class="cat-img" style="background-image: url('https://images.unsplash.com/photo-1568430462989-44163eb1752f?w=800&q=80')"></div>
+      <div class="cat-body">
+        <div class="cat-tag cat-tag-blue">Adventure</div>
+        <h3>Full Day Charters</h3>
+        <p>Go big — target striped bass and bluefin offshore, or head to Stellwagen Bank for world-class whale watching. Full days, full memories.</p>
+        <div class="cat-footer">
+          <div class="cat-price"><span>From</span> $1,000</div>
+          <div class="cat-toggle" id="full-toggle">See options ↓</div>
+        </div>
+      </div>
+      <div class="cat-panel" id="full-panel">
+        <div class="panel-section-label">Fishing</div>
+        <div class="panel-option">
+          <div class="panel-option-info">
+            <div class="panel-option-name">🐟 Big Game / Deep Sea Fishing</div>
+            <div class="panel-option-detail">4–10 hours · Up to 6 guests · Target bass, tuna, mahi & more · All gear + fish cleaning included</div>
+          </div>
+          <div class="panel-option-price">$1,250–$1,750</div>
+        </div>
+        <div class="panel-divider"></div>
+        <div class="panel-section-label">Wildlife</div>
+        <div class="panel-option">
+          <div class="panel-option-info">
+            <div class="panel-option-name">🐋 Whale Watching</div>
+            <div class="panel-option-detail">6–8 hours · Up to 6 guests · Stellwagen Bank · Humpbacks, finbacks & minkes · Seasonal June–Oct</div>
+          </div>
+          <div class="panel-option-price">$1,000</div>
+        </div>
+        <div class="panel-note">50% deposit to reserve. Full refund for weather cancellations.</div>
+        <a href="tel:5085612889" class="panel-book-btn" onclick="event.stopPropagation()">📞 Call or Text to Book: 508-561-2889</a>
+      </div>
+    </div>
+ 
+    <!-- ADDITIONAL -->
+    <div class="cat-card" onclick="togglePanel('extra')">
+      <div class="cat-img" style="background-image: url('https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=800&q=80')"></div>
+      <div class="cat-body">
+        <div class="cat-tag cat-tag-gold">Special</div>
+        <h3>Additional Trips</h3>
+        <p>Looking for something unique? We offer private day trips to Nantucket and overnight canyon fishing adventures. Call for pricing.</p>
+        <div class="cat-footer">
+          <div class="cat-price"><span></span>Call for Pricing</div>
+          <div class="cat-toggle" id="extra-toggle">See options ↓</div>
+        </div>
+      </div>
+      <div class="cat-panel" id="extra-panel">
+        <div class="panel-section-label">Custom Trips</div>
+        <div class="panel-option">
+          <div class="panel-option-info">
+            <div class="panel-option-name">⛵ Private Day Trip to Nantucket</div>
+            <div class="panel-option-detail">Custom duration · Up to 6 guests · Cruise to the island & explore at your own pace</div>
+          </div>
+          <div class="panel-option-price">Inquire</div>
+        </div>
+        <div class="panel-option">
+          <div class="panel-option-info">
+            <div class="panel-option-name">🌙 Canyons Overnight Trip</div>
+            <div class="panel-option-detail">Offshore canyon fishing · Up to 6 guests · Overnight passage · Subject to weather & availability</div>
+          </div>
+          <div class="panel-option-price">Inquire</div>
+        </div>
+        <div class="panel-note">Call or text us for custom pricing and availability on these special adventures.</div>
+        <a href="tel:5085612889" class="panel-book-btn" onclick="event.stopPropagation()">📞 Call or Text: 508-561-2889</a>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<script>
+function togglePanel(id) {
+  const panels = ['half', 'full', 'extra'];
+  panels.forEach(p => {
+    const panel = document.getElementById(p + '-panel');
+    const toggle = document.getElementById(p + '-toggle');
+    const card = panel.closest('.cat-card');
+    if (p === id) {
+      const isOpen = panel.classList.contains('open');
+      panel.classList.toggle('open', !isOpen);
+      toggle.textContent = isOpen ? 'See options ↓' : 'Close ↑';
+      card.classList.toggle('active', !isOpen);
+    } else {
+      panel.classList.remove('open');
+      toggle.textContent = 'See options ↓';
+      card.classList.remove('active');
+    }
+  });
+}
+</script>
+ 
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div>
+    <p class="section-label" style="color: var(--sand);">About Us</p>
+    <h2 class="section-title">Local Knowledge,<br><em>Genuine Fun</em></h2>
+    <p>We're a Cape Cod couple running private charters out of Harwich Port on our vessel, the <em>Menace of Dennis</em>. With a USCG-licensed captain and a passion for the water, we show our guests the Cape the way locals know it — up close, unhurried, and full of surprises.</p>
+    <p style="margin-top: 1rem;">Whether it's your kids' first catch, a sunset toast with friends, or an offshore whale sighting you'll never forget, we keep trips personal, relaxed, and just the right amount of adventurous.</p>
+    <div class="about-stats">
+      <div class="stat">
+        <div class="stat-num">6</div>
+        <div class="stat-label">Max Passengers</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Private Trips</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">USCG</div>
+        <div class="stat-label">Licensed Captain</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Trip Types</div>
+      </div>
+    </div>
+  </div>
+  <div class="about-img"></div>
+</section>
+ 
+<!-- WHAT TO EXPECT -->
+<section class="expect">
+  <p class="section-label">The Experience</p>
+  <h2 class="section-title">What to <em>Expect</em></h2>
+  <div class="expect-grid">
+    <div class="expect-item">
+      <div class="expect-icon">⚓</div>
+      <h4>Meet at the Dock</h4>
+      <p>We depart from Harwich Port. Arrive 15 mins early, we'll get you settled and give a quick safety overview.</p>
+    </div>
+    <div class="expect-item">
+      <div class="expect-icon">🌊</div>
+      <h4>Into the Sound</h4>
+      <p>We head out on Nantucket Sound or beyond to the best spots based on season, tides & your charter type.</p>
+    </div>
+    <div class="expect-item">
+      <div class="expect-icon">🎣</div>
+      <h4>Cast, Cruise & Enjoy</h4>
+      <p>Whether you're fishing, cruising, or whale watching — relax, take it in, and let us handle the rest.</p>
+    </div>
+    <div class="expect-item">
+      <div class="expect-icon">📸</div>
+      <h4>Head Home Happy</h4>
+      <p>Return to the dock with your catch, memories, and a camera roll worth sharing. We'll fillet your fish too!</p>
+    </div>
+  </div>
+</section>
+ 
+<!-- BOOK -->
+<section class="book" id="book">
+  <p class="section-label">Ready to Go?</p>
+  <h2 class="section-title">Book Your Trip on the <em>Menace of Dennis</em></h2>
+  <p>All trips are private — just your group, our boat, and the open water. The easiest way to book is to give us a call or send a text!</p>
+  <div class="book-cta-box">
+    <a href="tel:5085612889" class="book-phone-btn">
+      <span class="book-phone-icon">📞</span>
+      <span class="book-phone-main">Call or Text Us</span>
+      <span class="book-phone-num">508-561-2889</span>
+    </a>
+    <div class="book-or">or</div>
+    <a href="mailto:menaceofdennischarters@gmail.com" class="book-email-btn">
+      ✉️ Email Us at menaceofdennischarters@gmail.com
+    </a>
+  </div>
+  <p style="margin-top: 2rem; font-size: 0.85rem; color: rgba(255,255,255,0.5); max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.6;">We typically respond within a few hours. Let us know your preferred date, trip type, and number of guests!</p>
+</section>
+ 
+<!-- CONTACT -->
+<div class="contact">
+  <div class="contact-inner">
+    <div class="contact-info">
+      <h3>Menace of Dennis Charters</h3>
+      <p class="contact-detail">📍 Harwich Port, Cape Cod, MA</p>
+      <p class="contact-detail">📞 <a href="tel:5085612889">508-561-2889</a></p>
+      <p class="contact-detail">✉️ <a href="/cdn-cgi/l/email-protection#573a32393634323831333239393e24343f36252332252417303a363e3b7934383a"><span class="__cf_email__" data-cfemail="b0ddd5ded1d3d5dfd6d4d5deded9c3d3d8d1c2c4d5c2c3f0d7ddd1d9dc9ed3dfdd">[email&#160;protected]</span></a></p>
+      <div class="social-links">
+        <a href="#" class="social-link" title="Instagram">📸</a>
+        <a href="#" class="social-
