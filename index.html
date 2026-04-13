@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     :root {
       --navy: #0d1f2d;
       --ocean: #1a4a6b;
@@ -17,16 +17,16 @@
       --cream: #faf6ef;
       --white: #ffffff;
     }
- 
+
     html { scroll-behavior: smooth; }
- 
+
     body {
       font-family: 'DM Sans', sans-serif;
       background: var(--cream);
       color: var(--navy);
       overflow-x: hidden;
     }
- 
+
     /* NAV */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
@@ -61,57 +61,69 @@
       border-radius: 2px;
     }
     .nav-book:hover { background: #c9623d; color: white !important; }
- 
-    /* HERO */
-    .hero {
+
+    /* HERO SPLIT */
+    .hero-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
       min-height: 100vh;
+    }
+    .hero-left {
       background:
         linear-gradient(to bottom, rgba(13,31,45,0.55) 0%, rgba(13,31,45,0.2) 50%, rgba(13,31,45,0.7) 100%),
-        url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1800&q=80') center/cover no-repeat;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center;
-      padding: 2rem;
+        url('hero.jpg') center/cover no-repeat;
+      display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+      padding: 8rem 3.5rem 4rem;
       position: relative;
     }
-    .hero-eyebrow {
-      color: var(--sand);
-      font-size: 0.8rem;
-      letter-spacing: 0.25em;
-      text-transform: uppercase;
-      margin-bottom: 1.2rem;
-      font-weight: 500;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.3s forwards;
+    .hero-left .hero-eyebrow {
+      color: var(--sand); font-size: 0.8rem; letter-spacing: 0.25em;
+      text-transform: uppercase; margin-bottom: 1.2rem; font-weight: 500;
+      opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
     }
-    .hero h1 {
+    .hero-left h1 {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(3rem, 8vw, 6.5rem);
-      color: var(--white);
-      line-height: 1.05;
-      max-width: 1024px;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.5s forwards;
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      color: var(--white); line-height: 1.05; text-align: left;
+      opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
     }
-    .hero h1 em {
-      font-style: italic;
-      color: var(--sand);
+    .hero-left h1 em { font-style: italic; color: var(--sand); }
+    .hero-left .hero-sub {
+      margin-top: 1.5rem; color: rgba(255,255,255,0.82);
+      font-size: 1.05rem; font-weight: 300; line-height: 1.6; max-width: 420px;
+      opacity: 0; animation: fadeUp 0.8s 0.7s forwards;
     }
-    .hero-sub {
-      margin-top: 1.5rem;
-      color: rgba(255,255,255,0.82);
-      font-size: 1.15rem;
-      font-weight: 300;
-      max-width: 520px;
-      line-height: 1.6;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.7s forwards;
+    .hero-left .hero-ctas {
+      margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.8s 0.9s forwards;
     }
-    .hero-ctas {
-      margin-top: 2.5rem;
-      display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
-      opacity: 0;
-      animation: fadeUp 0.8s 0.9s forwards;
+    .hero-right {
+      background: var(--navy);
+      display: flex; flex-direction: column;
+      overflow: hidden;
     }
+    .hero-boat-img {
+      flex: 1;
+      background: url('boat.jpg') center/cover no-repeat;
+      min-height: 340px;
+    }
+    .hero-boat-blurb {
+      padding: 2.5rem;
+      background: var(--navy);
+    }
+    .hero-boat-blurb h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; color: var(--sand); margin-bottom: 0.75rem;
+    }
+    .hero-boat-blurb h3 em { font-style: italic; color: white; }
+    .hero-boat-blurb p {
+      color: rgba(255,255,255,0.7); font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.2rem;
+    }
+    .boat-specs {
+      list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
+    }
+    .boat-specs li { color: var(--sand); font-size: 0.82rem; letter-spacing: 0.03em; }
+
     .btn-primary {
       background: var(--coral);
       color: white;
@@ -138,15 +150,7 @@
       transition: border-color 0.2s, background 0.2s, transform 0.2s;
     }
     .btn-outline:hover { border-color: var(--sand); color: var(--sand); transform: translateY(-2px); }
- 
-    .hero-scroll {
-      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-      display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-      color: rgba(255,255,255,0.5); font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase;
-      animation: bounce 2s infinite;
-    }
-    .hero-scroll svg { width: 18px; opacity: 0.6; }
- 
+
     /* BADGE STRIP */
     .badge-strip {
       background: var(--navy);
@@ -158,7 +162,7 @@
       color: var(--sand); font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
     }
     .badge svg { width: 18px; color: var(--coral); }
- 
+
     /* SECTION COMMONS */
     section { padding: 6rem 4rem; }
     .section-label {
@@ -173,48 +177,10 @@
       max-width: 600px;
     }
     .section-title em { font-style: italic; color: var(--ocean); }
- 
+
     /* CHARTERS */
     .charters { background: var(--cream); }
-    .charters-grid {
-      display: grid; grid-template-columns: 1fr 1fr 1fr;
-      gap: 2rem; margin-top: 3.5rem;
-    }
-    .charter-card {
-      background: white;
-      border-radius: 4px;
-      overflow: hidden;
-      box-shadow: 0 4px 24px rgba(13,31,45,0.08);
-      transition: transform 0.25s, box-shadow 0.25s;
-    }
-    .charter-card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(13,31,45,0.14); }
-    .charter-img {
-      height: 220px;
-      background-size: cover; background-position: center;
-      position: relative;
-    }
-    .charter-tag {
-      position: absolute; top: 1rem; left: 1rem;
-      background: var(--coral); color: white;
-      font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 0.3rem 0.75rem; border-radius: 2px; font-weight: 500;
-    }
-    .charter-body { padding: 1.8rem; }
-    .charter-body h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.4rem; color: var(--navy); margin-bottom: 0.75rem;
-    }
-    .charter-body p { color: #5a6a78; font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.2rem; }
-    .charter-details { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
-    .detail-item { font-size: 0.82rem; color: var(--ocean); display: flex; align-items: center; gap: 0.4rem; }
-    .charter-price {
-      display: flex; align-items: baseline; gap: 0.4rem;
-      border-top: 1px solid #eee; padding-top: 1.2rem; margin-top: 0.5rem;
-    }
-    .price-from { font-size: 0.75rem; color: #999; text-transform: uppercase; letter-spacing: 0.06em; }
-    .price-amount { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: var(--navy); }
-    .price-per { font-size: 0.78rem; color: #999; }
- 
+
     /* ABOUT */
     .about {
       background: var(--navy);
@@ -231,38 +197,10 @@
     .about-stats {
       display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem;
     }
-    .stat {
-      border-left: 2px solid var(--coral);
-      padding-left: 1rem;
-    }
-    .stat-num {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem; color: var(--sand); line-height: 1;
-    }
+    .stat { border-left: 2px solid var(--coral); padding-left: 1rem; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--sand); line-height: 1; }
     .stat-label { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 0.3rem; letter-spacing: 0.06em; text-transform: uppercase; }
- 
-    /* RATES */
-    .rates { background: var(--cream); }
-    .rates-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3.5rem; max-width: 1024px; }
-    .rate-table {
-      background: white; border-radius: 4px;
-      box-shadow: 0 4px 24px rgba(13,31,45,0.07); overflow: hidden;
-    }
-    .rate-table-head {
-      background: var(--ocean); color: white;
-      padding: 1.2rem 1.8rem;
-      font-family: 'Playfair Display', serif; font-size: 1.2rem;
-    }
-    .rate-row {
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 1rem 1.8rem; border-bottom: 1px solid #f0f0f0;
-      font-size: 0.9rem;
-    }
-    .rate-row:last-child { border-bottom: none; }
-    .rate-row span:first-child { color: #5a6a78; }
-    .rate-row span:last-child { font-weight: 500; color: var(--navy); font-family: 'Playfair Display', serif; font-size: 1.05rem; }
-    .rate-note { padding: 1rem 1.8rem; font-size: 0.8rem; color: #aaa; background: #fafafa; }
- 
+
     /* WHAT TO EXPECT */
     .expect { background: #f0ebe2; }
     .expect-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-top: 3.5rem; }
@@ -271,43 +209,52 @@
       width: 60px; height: 60px; border-radius: 50%;
       background: var(--navy); color: var(--sand);
       display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 1.2rem;
-      font-size: 1.4rem;
+      margin: 0 auto 1.2rem; font-size: 1.4rem;
     }
     .expect-item h4 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 0.5rem; }
     .expect-item p { font-size: 0.88rem; color: #5a6a78; line-height: 1.6; }
- 
+
     /* BOOK */
     .book {
       background:
         linear-gradient(to right, rgba(13,31,45,0.88), rgba(26,74,107,0.75)),
-        url('https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1800&q=80') center/cover;
+        url('hero.jpg') center/cover;
       text-align: center; padding: 7rem 4rem;
     }
     .book .section-label { justify-content: center; display: block; }
     .book .section-title { color: white; margin: 0 auto 1.5rem; max-width: 700px; text-align: center; }
-    .book p { color: rgba(255,255,255,0.75); max-width: 500px; margin: 0 auto 2.5rem; font-size: 1rem; line-height: 1.7; }
-    .book-form {
-      display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; max-width: 600px; margin: 0 auto;
+    .book p { color: rgba(255,255,255,0.75); max-width: 500px; margin: 0 auto; font-size: 1rem; line-height: 1.7; }
+
+    /* BOOK CTA */
+    .book-cta-box { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 2rem; }
+    .book-phone-btn {
+      display: flex; flex-direction: column; align-items: center;
+      background: var(--coral); color: white; text-decoration: none;
+      padding: 1.5rem 3rem; border-radius: 4px;
+      transition: background 0.2s, transform 0.2s;
+      min-width: 280px;
     }
-    .book-form input, .book-form select {
-      background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.3);
-      color: white; padding: 0.85rem 1.2rem; border-radius: 2px;
-      font-family: 'DM Sans', sans-serif; font-size: 0.9rem; flex: 1; min-width: 180px;
+    .book-phone-btn:hover { background: #c9623d; transform: translateY(-2px); }
+    .book-phone-icon { font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .book-phone-main { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.85; }
+    .book-phone-num { font-family: 'Playfair Display', serif; font-size: 2rem; margin-top: 0.2rem; }
+    .book-or { color: rgba(255,255,255,0.4); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; }
+    .book-email-btn {
+      color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem;
+      border: 1px solid rgba(255,255,255,0.25); padding: 0.75rem 1.5rem; border-radius: 2px;
+      transition: border-color 0.2s, color 0.2s;
+      display: flex; align-items: center; gap: 0.4rem;
+      word-break: break-all;
     }
-    .book-form input::placeholder { color: rgba(255,255,255,0.55); }
-    .book-form select option { background: var(--navy); color: white; }
- 
+    .book-email-btn:hover { border-color: var(--sand); color: var(--sand); }
+
     /* CONTACT */
     .contact { background: var(--navy); padding: 4rem; }
     .contact-inner {
       display: flex; justify-content: space-between; align-items: center;
       flex-wrap: wrap; gap: 2rem; max-width: 1100px; margin: 0 auto;
     }
-    .contact-info h3 {
-      font-family: 'Playfair Display', serif;
-      color: var(--sand); font-size: 1.5rem; margin-bottom: 1rem;
-    }
+    .contact-info h3 { font-family: 'Playfair Display', serif; color: var(--sand); font-size: 1.5rem; margin-bottom: 1rem; }
     .contact-detail { color: rgba(255,255,255,0.65); font-size: 0.9rem; margin-bottom: 0.5rem; }
     .contact-detail a { color: var(--sky); text-decoration: none; }
     .contact-detail a:hover { color: var(--sand); }
@@ -319,14 +266,14 @@
       transition: border-color 0.2s, color 0.2s;
     }
     .social-link:hover { border-color: var(--sand); color: var(--sand); }
- 
+
     /* FOOTER */
     footer {
       background: #080f16;
       text-align: center; padding: 1.5rem;
       color: rgba(255,255,255,0.3); font-size: 0.78rem; letter-spacing: 0.05em;
     }
- 
+
     /* ANIMATIONS */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(24px); }
@@ -336,71 +283,7 @@
       0%, 100% { transform: translateX(-50%) translateY(0); }
       50% { transform: translateX(-50%) translateY(6px); }
     }
- 
- 
-    /* CATEGORY CARDS */
-    .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-    .cat-card {
-      background: white; border-radius: 4px; overflow: hidden;
-      box-shadow: 0 4px 24px rgba(13,31,45,0.08);
-      cursor: pointer; transition: transform 0.25s, box-shadow 0.25s;
-      display: flex; flex-direction: column;
-    }
-    .cat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(13,31,45,0.14); }
-    .cat-card.active { box-shadow: 0 12px 40px rgba(13,31,45,0.18); transform: translateY(-4px); }
-    .cat-img { height: 300px; background-size: cover; background-position: center; }
-    .cat-body { padding: 1.6rem; flex: 1; display: flex; flex-direction: column; }
-    .cat-tag {
-      display: inline-block; background: var(--coral); color: white;
-      font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 0.25rem 0.7rem; border-radius: 2px; font-weight: 500; margin-bottom: 0.75rem;
-    }
-    .cat-tag-gold { background: #b8860b; }
-    .cat-tag-blue { background: var(--ocean); }
-    .cat-body h3 { font-family: 'Playfair Display', serif; font-size: 1.35rem; color: var(--navy); margin-bottom: 0.6rem; }
-    .cat-body p { color: #5a6a78; font-size: 0.9rem; line-height: 1.65; flex: 1; }
-    .cat-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid #eee; }
-    .cat-price { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); }
-    .cat-price span { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; color: #999; margin-right: 0.3rem; text-transform: uppercase; letter-spacing: 0.05em; }
-    .cat-toggle { font-size: 0.82rem; color: var(--coral); font-weight: 500; letter-spacing: 0.04em; }
- 
-    /* EXPANDED PANEL */
-    .cat-panel {
-      max-height: 0; overflow: hidden;
-      transition: max-height 0.45s ease, padding 0.3s ease;
-      background: #f7f4ef; padding: 0 1.6rem;
-      border-top: none;
-    }
-    .cat-panel.open {
-      max-height: 600px;
-      padding: 1.6rem;
-      border-top: 2px solid var(--coral);
-    }
-    .panel-section-label {
-      font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--ocean); font-weight: 500; margin-bottom: 0.75rem;
-    }
-    .panel-option {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid rgba(13,31,45,0.08);
-    }
-    .panel-option:last-of-type { border-bottom: none; }
-    .panel-option-name { font-weight: 500; color: var(--navy); font-size: 0.92rem; margin-bottom: 0.25rem; }
-    .panel-option-detail { font-size: 0.8rem; color: #7a8a98; line-height: 1.5; }
-    .panel-option-price { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--navy); white-space: nowrap; padding-top: 0.1rem; }
-    .panel-divider { height: 1px; background: rgba(13,31,45,0.1); margin: 0.75rem 0; }
-    .panel-note { font-size: 0.78rem; color: #999; margin-top: 0.75rem; line-height: 1.5; }
-    .panel-book-btn {
-      display: block; margin-top: 1.2rem;
-      background: var(--coral); color: white; text-decoration: none;
-      text-align: center; padding: 0.75rem; border-radius: 2px;
-      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em;
-      transition: background 0.2s;
-    }
-    .panel-book-btn:hover { background: #c9623d; }
- 
- 
- 
+
     /* CATEGORY CARDS */
     .cat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
     .cat-card {
@@ -448,61 +331,43 @@
       transition: background 0.2s;
     }
     .panel-book-btn:hover { background: var(--ocean); }
- 
-    /* BOOK CTA */
-    .book-cta-box { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin-top: 0.5rem; }
-    .book-phone-btn {
-      display: flex; flex-direction: column; align-items: center;
-      background: var(--coral); color: white; text-decoration: none;
-      padding: 1.5rem 3rem; border-radius: 4px;
-      transition: background 0.2s, transform 0.2s;
-      min-width: 280px;
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero-split { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 7rem 2rem 3rem; align-items: center; text-align: center; }
+      .hero-left h1 { text-align: center; }
+      .hero-left .hero-sub { max-width: 100%; }
+      .hero-boat-img { min-height: 280px; }
+      .cat-grid { grid-template-columns: 1fr; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .about { grid-template-columns: 1fr; }
+      .about-img { height: 280px; order: -1; }
+      .expect-grid { grid-template-columns: 1fr 1fr; }
+      .badge-strip { gap: 1.5rem; padding: 1.2rem 1.5rem; }
+      .book { padding: 4rem 1.5rem; }
+      .boat-specs { grid-template-columns: 1fr; }
     }
-    .book-phone-btn:hover { background: #c9623d; transform: translateY(-2px); }
-    .book-phone-icon { font-size: 1.8rem; margin-bottom: 0.3rem; }
-    .book-phone-main { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.85; }
-    .book-phone-num { font-family: 'Playfair Display', serif; font-size: 2rem; margin-top: 0.2rem; }
-    .book-or { color: rgba(255,255,255,0.4); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; }
-.book-email-btn {
-  color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem;
-  border: 1px solid rgba(255,255,255,0.25); padding: 0.75rem 1.5rem; border-radius: 2px;
-  transition: border-color 0.2s, color 0.2s;
-  display: flex; align-items: center; gap: 0.4rem; text-align: center;
-  word-break: break-all;
-}
-/* RESPONSIVE */
-@media (max-width: 1024px) {
-  .cat-grid { grid-template-columns: 1fr; }
-  nav { padding: 1rem 1.5rem; }
-  .nav-links { display: none; }
-  section { padding: 4rem 1.5rem; }
-  .charters-grid { grid-template-columns: 1fr; }
-  .about { grid-template-columns: 1fr; }
-  .about-img { height: 280px; order: -1; }
-  .rates-grid { grid-template-columns: 1fr; }
-  .expect-grid { grid-template-columns: 1fr 1fr; }
-  .badge-strip { gap: 1.5rem; padding: 1.2rem 1.5rem; }
-  .book { padding: 4rem 1.5rem; }
-}
   </style>
 </head>
 <body>
- 
+
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">Menace of Dennis Charters</a>
   <ul class="nav-links">
     <li><a href="#charters">Charters</a></li>
-    <li><a href="#rates">Rates</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#book" class="nav-book">Book Now</a></li>
   </ul>
 </nav>
- 
-<!-- HERO -->
+
+<!-- HERO SPLIT -->
 <div class="hero-split">
 
-  <!-- LEFT: Adventure text with background photo -->
+  <!-- LEFT -->
   <div class="hero-left">
     <p class="hero-eyebrow">⚓ Harwich Port, Cape Cod, MA</p>
     <h1>Your <em>Adventure</em><br>Starts Here</h1>
@@ -513,7 +378,7 @@
     </div>
   </div>
 
-  <!-- RIGHT: Boat photo + blurb -->
+  <!-- RIGHT -->
   <div class="hero-right">
     <div class="hero-boat-img"></div>
     <div class="hero-boat-blurb">
@@ -529,78 +394,7 @@
   </div>
 
 </div>
-/* HERO SPLIT */
-.hero-split {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  min-height: 100vh;
-  margin-top: 0;
-}
-.hero-left {
-  background:
-    linear-gradient(to bottom, rgba(13,31,45,0.55) 0%, rgba(13,31,45,0.2) 50%, rgba(13,31,45,0.7) 100%),
-    url('hero.jpg') center/cover no-repeat;
-  display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
-  padding: 8rem 3.5rem 4rem;
-  position: relative;
-}
-.hero-left .hero-eyebrow {
-  color: var(--sand); font-size: 0.8rem; letter-spacing: 0.25em;
-  text-transform: uppercase; margin-bottom: 1.2rem; font-weight: 500;
-  opacity: 0; animation: fadeUp 0.8s 0.3s forwards;
-}
-.hero-left h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(2.5rem, 5vw, 5rem);
-  color: var(--white); line-height: 1.05; text-align: left;
-  opacity: 0; animation: fadeUp 0.8s 0.5s forwards;
-}
-.hero-left h1 em { font-style: italic; color: var(--sand); }
-.hero-left .hero-sub {
-  margin-top: 1.5rem; color: rgba(255,255,255,0.82);
-  font-size: 1.05rem; font-weight: 300; line-height: 1.6; max-width: 420px;
-  opacity: 0; animation: fadeUp 0.8s 0.7s forwards;
-}
-.hero-left .hero-ctas {
-  margin-top: 2.5rem; display: flex; gap: 1rem; flex-wrap: wrap;
-  opacity: 0; animation: fadeUp 0.8s 0.9s forwards;
-}
-.hero-right {
-  background: var(--navy);
-  display: flex; flex-direction: column;
-  overflow: hidden;
-}
-.hero-boat-img {
-  flex: 1;
-  background: url('boat.jpg') center/cover no-repeat;
-  min-height: 340px;
-}
-.hero-boat-blurb {
-  padding: 2.5rem;
-  background: var(--navy);
-}
-.hero-boat-blurb h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.5rem; color: var(--sand); margin-bottom: 0.75rem;
-}
-.hero-boat-blurb h3 em { font-style: italic; color: white; }
-.hero-boat-blurb p {
-  color: rgba(255,255,255,0.7); font-size: 0.92rem; line-height: 1.7; margin-bottom: 1.2rem;
-}
-.boat-specs {
-  list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;
-}
-.boat-specs li {
-  color: var(--sand); font-size: 0.82rem; letter-spacing: 0.03em;
-}
 
-@media (max-width: 1024px) {
-  .hero-split { grid-template-columns: 1fr; min-height: auto; }
-  .hero-left { padding: 7rem 2rem 3rem; align-items: center; text-align: center; }
-  .hero-left h1 { text-align: center; }
-  .hero-left .hero-sub { max-width: 100%; }
-  .hero-boat-img { min-height: 280px; }
-} 
 <!-- BADGE STRIP -->
 <div class="badge-strip">
   <div class="badge">
@@ -620,15 +414,15 @@
     Flexible Scheduling
   </div>
 </div>
- 
+
 <!-- CHARTERS -->
 <section class="charters" id="charters">
   <p class="section-label">What We Offer</p>
   <h2 class="section-title">Find Your Perfect <em>Trip</em></h2>
   <p style="color:#5a6a78; margin-top:0.75rem; margin-bottom:3rem; max-width:520px; line-height:1.7; font-size:0.95rem;">Click any category to explore your options — all trips are private, just your group and open water.</p>
- 
+
   <div class="cat-grid">
- 
+
     <!-- HALF DAY -->
     <div class="cat-card" onclick="togglePanel('half')">
       <div class="cat-img" style="background-image: url('halfday.jpg')"></div>
@@ -663,14 +457,14 @@
         <a href="tel:5085612889" class="panel-book-btn" onclick="event.stopPropagation()">📞 Call or Text to Book: 508-561-2889</a>
       </div>
     </div>
- 
+
     <!-- FULL DAY -->
     <div class="cat-card" onclick="togglePanel('full')">
       <div class="cat-img" style="background-image: url('fullday.jpg')"></div>
       <div class="cat-body">
         <div class="cat-tag cat-tag-blue">Adventure</div>
         <h3>Full Day Charters</h3>
-        <p>Go big — target striped bass and bluefin offshore, or relax and enjoy the beautiful scenary and incredible ocean life whale watching. Full days, full memories.</p>
+        <p>Go big — target striped bass and bluefin offshore, or relax and enjoy the beautiful scenery and incredible ocean life whale watching. Full days, full memories.</p>
         <div class="cat-footer">
           <div class="cat-price"><span>From</span> $950</div>
           <div class="cat-toggle" id="full-toggle">See options ↓</div>
@@ -692,16 +486,16 @@
             <div class="panel-option-name">🐋 Whale Watching</div>
             <div class="panel-option-detail">6–8 hours · Up to 6 guests · Stellwagen Bank · Humpbacks, finbacks & minkes · Seasonal June–Oct</div>
           </div>
-          <div class="panel-option-price">$950-$1,250</div>
+          <div class="panel-option-price">$950–$1,250</div>
         </div>
         <div class="panel-note">50% deposit to reserve. Full refund for weather cancellations.</div>
         <a href="tel:5085612889" class="panel-book-btn" onclick="event.stopPropagation()">📞 Call or Text to Book: 508-561-2889</a>
       </div>
     </div>
- 
+
     <!-- ADDITIONAL -->
     <div class="cat-card" onclick="togglePanel('extra')">
-      <div class="cat-img" style="background-image: url('additional.jpg')"></div>
+      <div class="cat-img" style="background-image: url('additional.jpg'); background-position: bottom;"></div>
       <div class="cat-body">
         <div class="cat-tag cat-tag-gold">Special</div>
         <h3>Additional Trips</h3>
@@ -731,10 +525,10 @@
         <a href="tel:5085612889" class="panel-book-btn" onclick="event.stopPropagation()">📞 Call or Text: 508-561-2889</a>
       </div>
     </div>
- 
+
   </div>
 </section>
- 
+
 <script>
 function togglePanel(id) {
   const panels = ['half', 'full', 'extra'];
@@ -745,17 +539,17 @@ function togglePanel(id) {
     if (p === id) {
       const isOpen = panel.classList.contains('open');
       panel.classList.toggle('open', !isOpen);
-      toggle.textContent = isOpen ? 'See options ↓' : 'Close ↑';
+      toggle.textContent = isOpen ? 'See options \u2193' : 'Close \u2191';
       card.classList.toggle('active', !isOpen);
     } else {
       panel.classList.remove('open');
-      toggle.textContent = 'See options ↓';
+      toggle.textContent = 'See options \u2193';
       card.classList.remove('active');
     }
   });
 }
 </script>
- 
+
 <!-- ABOUT -->
 <section class="about" id="about">
   <div>
@@ -784,7 +578,7 @@ function togglePanel(id) {
   </div>
   <div class="about-img"></div>
 </section>
- 
+
 <!-- WHAT TO EXPECT -->
 <section class="expect">
   <p class="section-label">The Experience</p>
@@ -812,7 +606,7 @@ function togglePanel(id) {
     </div>
   </div>
 </section>
- 
+
 <!-- BOOK -->
 <section class="book" id="book">
   <p class="section-label">Ready to Go?</p>
@@ -831,7 +625,7 @@ function togglePanel(id) {
   </div>
   <p style="margin-top: 2rem; font-size: 0.85rem; color: rgba(255,255,255,0.5); max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.6;">We typically respond within a few hours. Let us know your preferred date, trip type, and number of guests!</p>
 </section>
- 
+
 <!-- CONTACT -->
 <div class="contact">
   <div class="contact-inner">
@@ -839,7 +633,25 @@ function togglePanel(id) {
       <h3>Menace of Dennis Charters</h3>
       <p class="contact-detail">📍 Harwich Port, Cape Cod, MA</p>
       <p class="contact-detail">📞 <a href="tel:5085612889">508-561-2889</a></p>
-      <p class="contact-detail">✉️  <a href="mailto:menaceofdennischarters@gmail.com">menaceofdennischarters@gmail.com</a></p>
+      <p class="contact-detail">✉️ <a href="mailto:menaceofdennischarters@gmail.com">menaceofdennischarters@gmail.com</a></p>
       <div class="social-links">
         <a href="#" class="social-link" title="Instagram">📸</a>
-        <a href="#" class="social-
+        <a href="#" class="social-link" title="Facebook">f</a>
+        <a href="#" class="social-link" title="TripAdvisor">★</a>
+      </div>
+    </div>
+    <div>
+      <p style="color: rgba(255,255,255,0.5); font-size: 0.82rem; max-width: 300px; line-height: 1.7;">
+        Operating June through October out of Harwich Port.<br><br>
+        USCG Licensed · MA DMF Permitted · Fully Insured
+      </p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © 2025 Menace of Dennis Charters · Harwich Port, Cape Cod · All Rights Reserved
+</footer>
+
+</body>
+</html>
